@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
   const [weatherData, setWeatherData] = useState(null);
 
   // Hava durumu verisini almak için fetchWeather fonksiyonu
-  const fetchWeather = async () => {
+  const fetchWeather = useCallback(async () => {
     const apiKey = "899c0c2c03888f87600997b4fa32c5ed"; // API anahtarınız
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
@@ -26,12 +26,12 @@ function App() {
       console.error("Hava durumu alınamadı:", error);
       alert("Bir hata oluştu, lütfen tekrar deneyin.");
     }
-  };
+  }, [city]); // 'city' değiştiğinde fetchWeather fonksiyonu yeniden oluşturulacak
 
   // Sayfa ilk yüklendiğinde Çankaya'nın hava durumu verisini çek
   useEffect(() => {
     fetchWeather();
-  }, []); // Boş bağımlılık dizisi, sadece ilk renderda çalışacak
+  }, [fetchWeather]); // fetchWeather fonksiyonu bağımlılık olarak eklenmiş
 
   // Arka plan resmini seçen fonksiyon
   const getBackgroundImage = () => {
