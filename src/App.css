@@ -7,7 +7,6 @@
   background-position: center;
 }
 
-/* Sol tarafa dayalı içerik alanı */
 .content {
   background: linear-gradient(to right, rgb(0, 29, 127), rgba(1, 156, 236, 0.33));
   color: white;
@@ -17,20 +16,18 @@
   flex-direction: column;
 }
 
-/* Input alanı için stil */
 input {
   margin: 10px 0;
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #21A1F1FF;
   width: 90%;
   background: rgba(0, 29, 127, 0.18);
   color: white;
 
 }
 
-/* Güncelleme butonu */
 button {
   padding: 10px 20px;
   font-size: 16px;
@@ -40,10 +37,21 @@ button {
   border-radius: 5px;
   cursor: pointer;
   width: 93%;
+  margin: 3px;
 }
 
 button:hover {
   background-color: #21a1f1;
 }
 
-/* Gereksiz olan logoyla ilgili animasyonlar ve medya sorguları kaldırıldı */
+.city-buttons button {
+  background-color: #44aff3;
+  color: #fff;
+  margin: 5px;
+  width: 45%;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+.city-buttons button:hover {
+  background-color: #21A1F1FF;
+}

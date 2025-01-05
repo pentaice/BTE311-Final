@@ -3,11 +3,12 @@ import "./App.css";
 
 function App() {
   const [city, setCity] = useState("Çankaya"); // İlk şehir olarak Çankaya
+  const [inputCity, setInputCity] = useState("Çankaya");
   const [weatherData, setWeatherData] = useState(null);
 
   // Hava durumu verisini almak için fetchWeather fonksiyonu
   const fetchWeather = useCallback(async () => {
-    const apiKey = "899c0c2c03888f87600997b4fa32c5ed"; // API anahtarınız
+    const apiKey = "899c0c2c03888f87600997b4fa32c5ed"; // API anahtarı
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
     try {
@@ -28,12 +29,12 @@ function App() {
     }
   }, [city]); // 'city' değiştiğinde fetchWeather fonksiyonu yeniden oluşturulacak
 
-  // Sayfa ilk yüklendiğinde Çankaya'nın hava durumu verisini çek
+  // Sayfa ilk yüklendiğinde Çankaya'nın hava durumu verisini
   useEffect(() => {
     fetchWeather();
-  }, [fetchWeather]); // fetchWeather fonksiyonu bağımlılık olarak eklenmiş
+  }, [fetchWeather]); // fetchWeather fonksiyonu bağımlılık
 
-  // Arka plan resmini seçen fonksiyon
+  // Arka plan resmi
   const getBackgroundImage = () => {
     if (!weatherData || !weatherData.weather || !weatherData.weather[0]) {
       return ""; // Veriler gelmeden boş bırak
@@ -43,16 +44,31 @@ function App() {
 
     switch (weatherMain) {
       case "Clear":
-        return `${process.env.PUBLIC_URL}/clear.jpeg`; // Güneşli hava
+        return `${process.env.PUBLIC_URL}/clear.jpeg`;
       case "Rain":
-        return `${process.env.PUBLIC_URL}/rain.jpeg`; // Yağmurlu hava
+        return `${process.env.PUBLIC_URL}/rain.jpeg`;
       case "Snow":
-        return `${process.env.PUBLIC_URL}/snow.jpeg`; // Karlı hava
+        return `${process.env.PUBLIC_URL}/snow.jpeg`;
       case "Clouds":
-        return `${process.env.PUBLIC_URL}/clouds.jpeg`; // Bulutlu hava
+        return `${process.env.PUBLIC_URL}/clouds.jpeg`;
       default:
-        return `${process.env.PUBLIC_URL}/default.jpeg`; // Diğer durumlar
+        return `${process.env.PUBLIC_URL}/default.jpeg`;
     }
+  };
+
+
+  const handleCityChange = (e) => {
+    setInputCity(e.target.value);
+  };
+
+
+  const handleUpdate = () => {
+    setCity(inputCity); // inputCity'yi asıl city'e aktar ve güncelle
+  };
+
+  // Hızlı şehir seçimi için
+  const handleQuickCitySelect = (selectedCity) => {
+    setCity(selectedCity);
   };
 
   return (
@@ -67,10 +83,18 @@ function App() {
           <input
               type="text"
               placeholder="Şehir adı girin..."
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+              value={inputCity} // inputCity'i kontrol eder
+              onChange={handleCityChange}
           />
-          <button onClick={fetchWeather}>Güncelle</button>
+          <button onClick={handleUpdate}>Güncelle</button>
+
+          {/*Şehir Butonları*/}
+          <div className="city-buttons">
+            <button onClick={() => handleQuickCitySelect("Istanbul")}>İstanbul</button>
+            <button onClick={() => handleQuickCitySelect("Ankara")}>Ankara</button>
+            <button onClick={() => handleQuickCitySelect("Izmir")}>İzmir</button>
+            <button onClick={() => handleQuickCitySelect("Antalya")}>Antalya</button>
+          </div>
 
           {weatherData && (
               <div>
