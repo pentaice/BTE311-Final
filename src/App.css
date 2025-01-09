@@ -11,7 +11,7 @@
   background: linear-gradient(to right, rgb(0, 29, 127), rgba(1, 156, 236, 0.33));
   color: white;
   padding: 20px;
-  width: 40%;
+  width: 37%;
   display: flex;
   flex-direction: column;
 }
@@ -55,3 +55,16 @@ button:hover {
 .city-buttons button:hover {
   background-color: #21A1F1FF;
 }
+.footer {
+  background-color: rgb(14, 17, 30);
+  color: white;
+  text-align: center;
+  padding: 3px 0;
+  font-size: 11px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+
+
